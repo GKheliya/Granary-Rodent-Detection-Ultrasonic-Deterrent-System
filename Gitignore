@@ -1,0 +1,51 @@
+# ============================================
+# .gitignore — Granary Rodent Detection System
+# Arduino + Proteus 9 Project
+# ============================================
+
+# ----- Arduino Build Output -----
+# Generated when you compile in Arduino IDE
+build/
+*.hex
+*.elf
+*.bin
+*.map
+
+# Arduino IDE cache
+.arduino15/
+*.cache
+
+# ----- Proteus Simulation -----
+# Auto-generated Proteus files (not needed in repo)
+*.DBK          # Proteus backup files
+*.LKP          # Lookup files
+*.SDF          # Simulation data files
+*.PWI          # Workspace info
+*.log          # Simulation logs
+
+# Keep the main project file:
+# !simulation/proteus_project.pdsprj
+
+# ----- Windows -----
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ----- macOS -----
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ----- VS Code (if used) -----
+.vscode/
+*.code-workspace
+
+# ----- Temporary & System Files -----
+*.tmp
+*.bak
+*.swp
+*~
+
+# ----- Large media/simulation output -----
+# Uncomment if your simulation outputs are large
+# simulation/results/
