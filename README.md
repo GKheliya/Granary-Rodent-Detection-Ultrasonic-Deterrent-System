@@ -58,64 +58,6 @@ The system uses a **dual-sensor event counting** approach with a sliding 8-secon
 | Condition 2 | 0 | ≥ 2 |
 | Condition 3 | 1 | 1 |
 
-### System Flow
-
-```
-[ARMED] → Sensors monitor environment continuously
-    ↓
-[EVENT] → Motion or vibration detected → counter increments
-    ↓
-[CHECK] → Trigger condition met within 5-second detection window?
-    ↓ YES                             ↓ NO
-[ACTIVE] → Buzzer sweeps 22–32kHz    [WAIT] → Reset counters after 8s
-    ↓         Red LED ON, Green OFF
-[10 sec] → Deterrent runs for 10 seconds
-    ↓
-[COOLDOWN] → 3-second cooldown, LEDs flash alternately
-    ↓
-[RE-ARMED] → Green LED ON, system ready
-```
-
----
-
-## 💻 Source Code
-
-The firmware is written in **C/C++** using the Arduino IDE and validated in **Proteus 9 Professional**.
-
-```cpp
-// ============================================
-// GRAIN STORAGE RODENT DETECTION SYSTEM
-// Dual Sensor: PIR Motion + Vibration Detection
-// Author: Gopolang Kheliya | University of Botswana
-// Course: EEB 444 | 2026
-//
-// Trigger Conditions:
-//   - 2 Motion Events, OR
-//   - 2 Vibration Events, OR
-//   - 1 Motion + 1 Vibration Event
-// ============================================
-
-const int pirPin   = 4;   // PIR motion sensor output
-const int vibPin   = 5;   // Vibration sensor output
-const int piezoPin = 8;   // Ultrasonic buzzer
-const int greenLED = 6;   // System armed indicator
-const int redLED   = 7;   // Rodent detected indicator
-
-const unsigned long activeTime       = 10000; // 10s deterrent
-const unsigned long cooldownTime     = 3000;  // 3s cooldown
-const unsigned long detectionWindow  = 5000;  // 5s trigger window
-const unsigned long debounceTime     = 150;   // 150ms debounce
-const unsigned long resetCounterTime = 8000;  // 8s counter reset
-
-// Frequency sweep: 22kHz → 32kHz → 22kHz (prevents habituation)
-int freq = 22000;
-int freqDirection = 1;
-```
-
-> 📁 Full annotated source code in [`/src/rat_deterrent.ino`](src/rat_deterrent.ino)
-
----
-
 ## 🔬 Simulation Results (Proteus 9)
 
 Validated in Proteus 9 Professional across all three trigger conditions:
@@ -134,28 +76,6 @@ Validated in Proteus 9 Professional across all three trigger conditions:
 | Trigger evaluation | < 100ms |
 | Deterrent activation | < 100ms |
 | Re-arm after cycle | 3s cooldown |
-
----
-
-## 📁 Project Structure
-
-```
-granary-rodent-detection/
-│
-├── src/
-│   └── rat_deterrent.ino          # Full Arduino sketch
-│
-├── docs/
-│   ├── circuit_diagram.png        # Proteus schematic capture
-│   ├── flowchart.png              # System detection flowchart
-│   └── Mini_Project_Report.pdf    # Full EEB 444 project report
-│
-├── simulation/
-│   └── proteus_project.pdsprj    # Proteus 9 simulation file
-│
-├── README.md
-└── LICENSE
-```
 
 ---
 
